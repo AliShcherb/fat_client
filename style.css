@@ -1,0 +1,122 @@
+body{
+    padding: 30px;
+}
+.col{
+    margin: 0 50px;
+}
+.container{
+    width: 100%;
+}
+.list-group {
+    margin-top: 50px;
+}
+.list-group-item:active {
+    background-color: rgba(197, 0, 252, 0.45);
+}
+
+.send-button{
+    margin-top: 50px;
+    background-color: rgba(197, 0, 252, 0.45);
+    width:100%;
+    height: 50px;
+    font-size: 20px;
+}
+.buttons{
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+}
+.add-button{
+    width: 50%;
+    height: 40px;
+    background-color: rgba(197, 0, 252, 0.45);
+}
+
+.form-popup {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+}
+
+.form-popup .bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form-popup .content {
+    position: relative;
+    background: rgb(197, 0, 252);
+    padding: 20px;
+}
+.form-container,row{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-around;
+}
+button {
+    width: 70px;
+    display: block;
+    background-color: rgba(197, 0, 252, 0.45);
+    margin-top: -2px !important ;
+}
+
+table td,
+table th {
+    border: 1px solid silver;
+}
+
+.headerSortDown:after,
+.headerSortUp:after {
+    content: ' ';
+    position: relative;
+    left: 2px;
+    border: 8px solid transparent;
+}
+
+.headerSortDown:after {
+    top: 10px;
+    border-top-color: silver;
+}
+
+.headerSortUp:after {
+    bottom: 15px;
+    border-bottom-color: silver;
+}
+
+.headerSortDown,
+.headerSortUp {
+    padding-right: 10px;
+    padding-left: 10px;
+
+}
+th {
+    padding: 10px 20px !important;
+}
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 30px;
+    text-decoration: none;
+}
+
+.client, .admin{
+    height: 50px;
+    width: 150px;
+    background-color: rgba(0, 128, 0, 0.57);
+}
+
+.admin{
+    margin-left: 40px;
+    background-color: rgba(255, 0, 0, 0.82);
+}

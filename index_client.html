@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+    <script src="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <title>Client</title>
+</head>
+<header class="header">
+    <button class="client"><a href="index_client.html">Client</a></button>
+    <button class="admin"><a href="index_administrator.html">Administrator</a></button>
+</header>
+<body onload="loadTable();sortTable(1);">
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-striped" data-toggle="table">
+                <thead>
+                <tr>
+                    <th onclick="sortNumber()">ID</th>
+                    <th onclick="sortTable(1)">Author</th>
+                    <th onclick="sortTable(2)">Text</th>
+                </tr>
+                </thead>
+                <tbody id="info-table">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function loadTable() {
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    var data = this.responseText;
+                    var jsonResponse = JSON.parse(data);
+                    var table = document.getElementById('info-table');
+                    table.setAttribute('class', 'history');
+
+                    let properties = ['id', 'author', 'text'];
+
+                    for (var r = 0; r < jsonResponse.length; r++) {
+                        let tr = document.createElement('tr');
+                        let row = jsonResponse[r];
+                        for (let i = 0; i < properties.length; i++) {
+                            let td = document.createElement('td');
+                            td.appendChild(document.createTextNode(row[properties[i]]));
+                            tr.appendChild(td);
+                        }
+
+
+                        table.appendChild(tr);
+                    }
+                }
+            };
+        let url = "http://localhost:3000/articles";
+        xhttp.open("GET", url, false);
+        xhttp.send();
+
+    }
+
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("info-table");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 0; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[n];
+                y = rows[i + 1].getElementsByTagName("td")[n];
+                if (dir == "asc") {
+                    if ((Number(x.innerHTML) > Number(y.innerHTML)) || (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase())) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+        document.querySelectorAll('th').forEach(function (elem, index) {
+            if (index_client === n) {
+                elem.className = (dir === "desc" ? 'headerSortDown' : 'headerSortUp');
+            }
+        });
+    }
+
+    function sortNumber() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("info-table");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 0; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[0];
+                y = rows[i + 1].getElementsByTagName("td")[0];
+                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+
+    document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+            document.querySelectorAll(".list-group-item").forEach(function (element) {
+                element.onclick = function () {
+                    document.getElementById("form22").innerText = this.innerText;
+                }
+            });
+        }
+    }
+
+</script>
+</body>
+</html>
